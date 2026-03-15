@@ -1,0 +1,23 @@
+# TaskMaster Pro - Cursor Rules
+
+## STRICT EXECUTION RULES (MANDATORY)
+- NO USER INTERACTION: Never ask questions, seek approval, or pause. Assume yes to all.
+- AUTONOMOUS MODE: Plan → Generate → Test → Fix → Deploy → Scale in one seamless flow.
+- ERROR HANDLING: Run automated tests/linters after every major change. Fix issues silently.
+- CONTEXT MAX: Use full repo context + external best practices. Parallelize tasks.
+- COMMITS: Auto-commit with descriptive messages after each phase. Use semantic versioning.
+- SECURITY FIRST: Integrate OWASP top 10 protections from start.
+
+## Tech Stack
+- Frontend: Next.js 15 App Router, TypeScript, Tailwind CSS, Shadcn/UI, React Query, Zustand
+- Backend: Next.js API routes + Prisma ORM, tRPC
+- Database: Supabase Postgres
+- Auth: NextAuth.js (credentials + OAuth)
+- Real-time: Supabase Realtime
+- Validation: Zod everywhere
+
+## Code Standards
+- Use Zod for all input validation/sanitization
+- Type-safe APIs via tRPC
+- Mobile-first responsive design
+- ARIA labels and keyboard nav for accessibility
