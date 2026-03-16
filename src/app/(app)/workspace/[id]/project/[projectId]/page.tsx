@@ -203,7 +203,7 @@ export default function ProjectPage() {
             <CardTitle className="text-base">People on this project</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {workspaceMembers.map((m) => (
+            {workspaceMembers.map((m: (typeof workspaceMembers)[number]) => (
               <div
                 key={m.id}
                 className="flex items-center justify-between rounded-md border px-3 py-2"
