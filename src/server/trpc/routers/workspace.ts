@@ -67,4 +67,47 @@ export const workspaceRouter = router({
       await ctx.prisma.workspace.delete({ where: { id: input.id } });
       return { success: true };
     }),
+
+  updateMemberRole: protectedProcedure
+    .input(
+      z.object({
+        workspaceId: z.string().cuid(),
+        memberId: z.string().cuid(),
+        role: z.enum(["owner", "member", "viewer"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const acting = await ctx.prisma.workspaceMember.findFirst({
+        where: { workspaceId: input.workspaceId, userId: ctx.session.user.id },
+      });
+      if (!acting || acting.role !== "owner") throw new Error("Not authorized");
+      if (acting.id === input.memberId) {
+        throw new Error("You cannot change your own role");
+      }
+      return ctx.prisma.workspaceMember.update({
+        where: { id: input.memberId },
+        data: { role: input.role },
+      });
+    }),
+
+  removeMember: protectedProcedure
+    .input(
+      z.object({
+        workspaceId: z.string().cuid(),
+        memberId: z.string().cuid(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const acting = await ctx.prisma.workspaceMember.findFirst({
+        where: { workspaceId: input.workspaceId, userId: ctx.session.user.id },
+      });
+      if (!acting || acting.role !== "owner") throw new Error("Not authorized");
+      if (acting.id === input.memberId) {
+        throw new Error("You cannot remove yourself");
+      }
+      await ctx.prisma.workspaceMember.delete({
+        where: { id: input.memberId },
+      });
+      return { success: true };
+    }),
 });

@@ -96,6 +96,8 @@ model Project {
   name        String
   description String?
   color       String?
+  icon        String?  @default("Folder")
+  image       String?
   workspaceId String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

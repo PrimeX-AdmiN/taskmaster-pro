@@ -116,12 +116,15 @@ export default function NewTaskPage() {
             </div>
             <div className="space-y-2">
               <Label>Project</Label>
-              <Select value={projectId ?? ""} onValueChange={(v) => setProjectId(v || null)}>
+              <Select
+                value={projectId ?? "none"}
+                onValueChange={(v) => setProjectId(v === "none" ? null : v)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="No project" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">No project</SelectItem>
+                  <SelectItem value="none">No project</SelectItem>
                   {projects?.map((p) => (
                     <SelectItem key={p.id} value={p.id}>
                       {p.name}
